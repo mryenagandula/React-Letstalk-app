@@ -1,4 +1,4 @@
-export const AUTH_TOKEN="letstalk-auth";
+export const AUTH_TOKEN="auth";
 
 export const getToken = ()=>{
     console.log(localStorage.getItem(AUTH_TOKEN))

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { deleteToken, getToken } from "../../utils/token.service";
 
-const BASE_URL= "http://localhost:3000/";
+const BASE_URL= "https://letstalk-be.herokuapp.com/";
 
 const axiosClient=  axios.create({
     baseURL: BASE_URL
