@@ -3,7 +3,8 @@ import { Container } from '@mui/system';
 import React, { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import AppContext from '../AppContext'
-import { deleteToken } from '../utils/token.service';
+import AuthGuard from '../guards/AuthGuard';
+import { deleteToken, getToken } from '../utils/token.service';
 
 function NavBar() {
   const navigate = useNavigate();
@@ -57,19 +58,23 @@ function NavBar() {
             >
               Lets Talk
             </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {pages.map((page) => (
-                <Button
-                key={page.id}
-                component={Link} to={page.path}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                >
-                  {page.label}
-                </Button>
-              ))}
-            </Box>
+            
+              <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                {pages.map((page) => (
+                  <AuthGuard key={page.id}>
+                  <Button
+                  key={page.id}
+                  component={Link} to={page.path}
+                    sx={{ my: 2, color: 'white', display: 'block' }}
+                  >
+                    {page.label}
+                  </Button>
+                  </AuthGuard>
+                ))}
+              </Box>
+            
 
-
+            {getToken() ?
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -103,7 +108,7 @@ function NavBar() {
                   <Typography textAlign="center">{displayText}</Typography>
                 </MenuItem>
               </Menu>
-            </Box>
+            </Box> : <></>}
           </Toolbar>
         </Container>
       </AppBar>
