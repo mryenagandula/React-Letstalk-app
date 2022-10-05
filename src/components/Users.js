@@ -20,7 +20,7 @@ function Users({loadUsers,users,loading}) {
     loadUsers();
   }, [loadUsers])
   return (
-    <div style={{ height: 600, width: '100%' }}>
+    <div style={{ height: 400 }}>
       <h1>List of Users ({users.length}) </h1>
       <DataGrid
         rows={users}

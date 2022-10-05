@@ -1,10 +1,9 @@
-import { Box } from '@mui/material'
 import React from 'react'
 
 function About() {
   return (
-      <>
-        <Box sx={{ flexGrow: 1 }}>
+      <div className='container row mt-3 p-3'>
+        <div className='col-md-8'>
             <h2 style={{fontSize: "24px"}}>Hi Viewers/Visitors ! </h2>
 
             <p>Good to see u again and Thanks for visiting our website. </p>
@@ -24,8 +23,8 @@ function About() {
 
             <p>Thanks,</p>
             <h2 style={{fontSize: "24px"}}>Letstalk Team.</h2>
-        </Box> 
-        <Box>
+        </div> 
+        <div className='col-md-3'>
             <h1 className="letstalk-about-title">Let's Talk </h1>
             <h4>&copy;2021-2022 All Rights Reserved.</h4>
             <p>Our Collaborators</p>
@@ -42,8 +41,8 @@ function About() {
                 </div>
                 &nbsp;&nbsp;<p> Buy me a Coffee</p>
             </div>
-        </Box> 
-      </>
+        </div> 
+      </div>
   )
 }
 
