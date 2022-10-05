@@ -1,9 +1,10 @@
-import { LOAD_USERS, LOAD_USERS_FAILURE, LOAD_USERS_SUCCESS } from "../actions/users/users.action.types";
+import { LOAD_USERS, LOAD_USERS_FAILURE, LOAD_USERS_SUCCESS, USER_LOGIN, USER_LOGIN_FAILURE, USER_LOGIN_SUCCESS } from "../actions/users/users.action.types";
 
 const initialState = {
     users:[],
     error:null,
-    loading: false
+    loading: false,
+    token: null,
 }
 
 const userReducer = (state= initialState , action) => {
@@ -22,6 +23,23 @@ const userReducer = (state= initialState , action) => {
         case LOAD_USERS_FAILURE : return {
             ...state,
             loading: false,
+            error: action.payload
+        }
+        case USER_LOGIN : return {
+            ...state,
+            loading : true,
+            error:null
+        }
+        case USER_LOGIN_SUCCESS : return {
+            ...state,
+            token: action.payload,
+            loading:false,
+            error:null
+        }
+        case USER_LOGIN_FAILURE : return {
+            ...state,
+            loading: false,
+            token:null,
             error: action.payload
         }
 
