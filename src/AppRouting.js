@@ -7,6 +7,7 @@ import Blogs from './components/Blogs';
 import ContactUs from './components/ContactUs';
 import Forbidden from './components/Forbidden';
 import Home from './components/Home';
+import InjectAxiosInterceptors from './components/InjectAxiosInterceptors';
 import Login from './components/Login';
 import Logout from './components/Logout';
 import Register from './components/Register';
@@ -15,6 +16,7 @@ import Users from './components/Users';
 function AppRouting() {
   return (
     <Router>
+      <InjectAxiosInterceptors/>
       <Routes>
         <Route element={<App />}>
           <Route path='/' index element={<Home />} />

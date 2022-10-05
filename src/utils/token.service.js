@@ -1,12 +1,11 @@
 export const AUTH_TOKEN="auth";
 
 export const getToken = ()=>{
-    console.log(localStorage.getItem(AUTH_TOKEN))
     return localStorage.getItem(AUTH_TOKEN)
 }
 
 export const setToken = (token)=>{
-    return localStorage.setItem(AUTH_TOKEN,token)
+    return localStorage.setItem(AUTH_TOKEN,JSON.stringify(token));
 }
 
 export const deleteToken = (token)=>{

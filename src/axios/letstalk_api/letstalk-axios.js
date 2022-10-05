@@ -7,40 +7,45 @@ const axiosClient=  axios.create({
     baseURL: BASE_URL
 })
 
-axiosClient.interceptors.request.use(req=>{
-    const token = getToken();
-    if(token){
-        const tokenData= JSON.parse(token)
-        req.headers['Authorization'] = `Bearer ${tokenData.token}`;
-    }
-    else{
-        deleteToken();
-        window.location.href='/login'
-    }
-    return req;
-})
 
-axiosClient.interceptors.response.use(
-    res=>{
-        if(res?.response?.status === 403){
-            window.location.href='/forbidden'
+
+export const setUpInterceptors= (navigate)=>{
+
+    axiosClient.interceptors.request.use(req=>{
+        const token = getToken();
+        if(token){
+            const tokenData= JSON.parse(token)
+            req.headers['Authorization'] = `Bearer ${tokenData.token}`;
         }
-        if(res?.response?.status === 401){
-            window.location.href='/login'
+        else{
+            deleteToken();
+            navigate('/login');
         }
-        return res;
-    },
-    error=>{
-        console.log(error)
-        if (error.response.status === 404 || error.response.status === 401) {
-            window.location.href='/login'
-            throw new Error(`${error.config.url} not found`);
+        return req;
+    })
+
+    axiosClient.interceptors.response.use(
+        res=>{
+            if(res?.response?.status === 403){
+                navigate('/forbidden');
+            }
+            if(res?.response?.status === 401){
+                navigate('/login');
+            }
+            return res;
+        },
+        error=>{
+            if (error.response.status === 404 || error.response.status === 401) {
+                navigate('/login');
+                console.log("error occuered in interceptor level" + error)
+            }
+            if (error.response.status === 403) {
+                navigate('/forbidden');
+                console.log("error occuered in interceptor level" + error)
+            }
+            throw error;
         }
-        if (error.response.status === 403) {
-            window.location.href='/forbidden'
-        }
-        throw error;
-    }
-)
+    )
+}
 
 export default axiosClient;
