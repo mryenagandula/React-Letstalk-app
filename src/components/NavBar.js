@@ -1,12 +1,14 @@
 import { AppBar, Box, Button, MenuItem, Menu, Toolbar, Tooltip, Typography, IconButton, Avatar } from '@mui/material';
 import { Container } from '@mui/system';
 import React, { useContext } from 'react'
+import { connect } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import AppContext from '../AppContext'
 import AuthGuard from '../guards/AuthGuard';
+import { logout } from '../store/actions/users/users.action';
 import { deleteToken, getToken } from '../utils/token.service';
 
-function NavBar() {
+function NavBar({logoutAction}) {
   const navigate = useNavigate();
   const { themeMode, setThemeMode } = useContext(AppContext);
   const btnText = themeMode === 'light' ? 'dark' : 'light';
@@ -31,6 +33,7 @@ function NavBar() {
 
   const logout = () =>{
     deleteToken();
+    logoutAction();
     navigate('/login');
   }
   const handleCloseUserMenu = () => {
@@ -116,4 +119,17 @@ function NavBar() {
   )
 }
 
-export default NavBar
+const mapStateToProps = ({users}) =>{
+  return {
+    loading: users.loading,
+    error: users.error,
+  }
+}
+
+const mapDispatchToProps = (dispatch) =>{
+  return {
+    logoutAction: () => dispatch(logout())
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(NavBar);

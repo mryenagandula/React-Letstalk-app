@@ -9,7 +9,6 @@ import Forbidden from './components/Forbidden';
 import Home from './components/Home';
 import InjectAxiosInterceptors from './components/InjectAxiosInterceptors';
 import Login from './components/Login';
-import Logout from './components/Logout';
 import Register from './components/Register';
 import Users from './components/Users';
 
@@ -29,7 +28,6 @@ function AppRouting() {
           <Route path="/forbidden" element={<Forbidden/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/register" element={<Register/>}/>
-          <Route path="/logout" element={<Logout/>}/>
           <Route path="*" element={<Navigate to ="/forbidden" />}/>
         </Route>
       </Routes>

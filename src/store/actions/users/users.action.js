@@ -1,6 +1,6 @@
 import axiosClient from "../../../axios/letstalk_api/letstalk-axios"
 import { setToken } from "../../../utils/token.service"
-import { LOAD_USERS, LOAD_USERS_FAILURE, LOAD_USERS_SUCCESS, USER_LOGIN, USER_LOGIN_FAILURE, USER_LOGIN_SUCCESS } from "./users.action.types"
+import { LOAD_USERS, LOAD_USERS_FAILURE, LOAD_USERS_SUCCESS, USER_LOGIN, USER_LOGIN_FAILURE, USER_LOGIN_SUCCESS,USER_LOGOUT } from "./users.action.types"
 
 export const loadUsers = () =>{
     return {
@@ -41,6 +41,12 @@ export const userLoginFailure = (error) =>{
     return {
         type : USER_LOGIN_FAILURE,
         payload : error
+    }
+}
+
+export const logout = () =>{
+    return {
+        type : USER_LOGOUT
     }
 }
 

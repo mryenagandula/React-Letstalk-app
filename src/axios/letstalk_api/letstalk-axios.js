@@ -36,6 +36,7 @@ export const setUpInterceptors= (navigate)=>{
         },
         error=>{
             if (error.response.status === 404 || error.response.status === 401) {
+                deleteToken();
                 navigate('/login');
                 console.log("error occuered in interceptor level" + error)
             }

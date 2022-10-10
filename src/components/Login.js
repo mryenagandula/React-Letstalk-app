@@ -1,20 +1,28 @@
 import { useFormik } from 'formik'
 import React from 'react'
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import * as yup from "yup";
 import { loginUser } from '../store/actions/users/users.action';
 
 
-function Login({loginUser,loading,error}) {
+function Login({loginUser,isAuthenticated}) {
+  const navigateTo= useNavigate();
+
+  useEffect(() => {
+    if(isAuthenticated){
+      navigateTo('/home')
+    } 
+  }, [isAuthenticated,navigateTo])
+  
   const initialValues= {
     email: '',
     password: ''
   }
 
   const onSubmit = (values,props) =>{
-    console.log(values)
     loginUser(values);
-    // props.setSubmitting(false);
     props.resetForm();
   }
 
@@ -74,7 +82,8 @@ function Login({loginUser,loading,error}) {
 const mapStateToProps = ({users}) =>{
   return {
     loading: users.loading,
-    error: users.error
+    error: users.error,
+    isAuthenticated: users.isAuthenticated
   }
 }
 
